@@ -1,0 +1,93 @@
+{
+  "detected_item": "Handheld LED flashlight (battery-powered)",
+  "problem_summary": "Flashlight produces no light. Most likely cause is dead batteries or corroded contacts, both of which are field-repairable without tools.",
+  "category": "emergency_equipment",
+  "risk_level": "low",
+  "repair_difficulty": "beginner",
+  "confidence_overall": 0.91,
+  "visible_observations": [
+    "No light output on any brightness setting",
+    "Unit feels lighter than expected — possible dead or missing batteries",
+    "Possible white or green residue visible inside battery compartment"
+  ],
+  "likely_causes": [
+    {
+      "description": "Dead or fully depleted batteries",
+      "confidence": 0.88,
+      "evidence": "No light on any setting; unit has not been tested recently or was left on accidentally"
+    },
+    {
+      "description": "Corroded battery contacts blocking electrical connection",
+      "confidence": 0.72,
+      "evidence": "White or green powder visible on battery terminals or inside compartment"
+    },
+    {
+      "description": "Faulty or stuck switch not completing the circuit",
+      "confidence": 0.55,
+      "evidence": "Switch feels mushy, does not click, or feels mechanically stuck"
+    },
+    {
+      "description": "Blown LED driver or failed LED module",
+      "confidence": 0.30,
+      "evidence": "Fresh batteries installed, contacts clean, switch clicks firmly — still no light"
+    }
+  ],
+  "clarifying_questions": [
+    "Have you tried fresh batteries from a sealed, unused pack?",
+    "Is there any visible white powder or green residue inside the battery compartment?",
+    "Does the power switch click with a firm tactile feel, or does it feel loose or stuck?"
+  ],
+  "tools_needed": [
+    "Fresh replacement batteries (correct size for flashlight model)",
+    "White vinegar and cotton swabs (corrosion cleaning)",
+    "Multimeter (optional, for contact voltage test)"
+  ],
+  "next_best_test": "Open the battery compartment and inspect contacts for corrosion. Install fresh batteries from a sealed pack and test immediately.",
+  "step_by_step_repair": [
+    {
+      "step_number": 1,
+      "instruction": "Open the battery compartment. Inspect the metal contacts for white or green corrosion deposits.",
+      "warning": "Do not touch battery acid or heavy corrosion with bare skin — use gloves or a cloth.",
+      "expected_outcome": "Clean contacts mean batteries are the issue. Corrosion present means contacts need cleaning before new batteries will work."
+    },
+    {
+      "step_number": 2,
+      "instruction": "If corrosion is present, dampen a cotton swab with white vinegar. Scrub contacts until residue is removed. Let dry fully before installing batteries.",
+      "warning": null,
+      "expected_outcome": "Contacts turn shiny silver — corrosion neutralized."
+    },
+    {
+      "step_number": 3,
+      "instruction": "Install fresh batteries with correct polarity (match + and - markings inside compartment).",
+      "warning": null,
+      "expected_outcome": "Flashlight turns on immediately. If not, proceed to next step."
+    },
+    {
+      "step_number": 4,
+      "instruction": "Press and hold the switch firmly for 3 seconds while testing. Check if the switch feels sticky or fails to click.",
+      "warning": null,
+      "expected_outcome": "Light activates if switch was sticking. Continued failure points to LED driver fault."
+    }
+  ],
+  "stop_conditions": [
+    "Stop if batteries show swelling, leaking liquid, or unusual heat — dispose safely per local regulations, do not force into compartment.",
+    "Stop if you see burn marks or melted plastic inside the battery compartment — unit is damaged and should be replaced."
+  ],
+  "prevention": [
+    "Remove batteries from emergency flashlights stored for more than 3 months to prevent corrosion damage.",
+    "Test all emergency equipment monthly and log the test date on a label attached to the unit.",
+    "Store a sealed spare battery pack with each critical emergency flashlight."
+  ],
+  "retrieved_sources": [
+    {
+      "title": "Emergency Equipment Field Maintenance Guide",
+      "source": "knowledge_base/emergency_equipment/field_maintenance_guide.md",
+      "relevance_score": 0.89
+    },
+    {
+      "title": "Battery Contact Corrosion Cleaning Procedures",
+      "source": "knowledge_base/emergency_equipment/battery_corrosion_repair.md",
+      "relevance_score": 0.82
+    }
+  ]
+}

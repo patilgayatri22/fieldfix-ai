@@ -95,3 +95,29 @@ Every repair answer must include:
 - Never hardcode secrets.
 - Use small focused files.
 - Do not expand scope beyond the 5 knowledge bases and 4 demo flows.
+
+## Caveman Usage
+
+Caveman may be used for concise coding tasks only.
+
+Use Caveman for:
+- backend implementation
+- bug fixes
+- schema alignment
+- frontend type alignment
+- simple refactors
+- tests
+- final audits
+
+Do not use Caveman for:
+- safety policy design
+- architecture reasoning
+- product strategy
+- README
+- pitch
+- demo script
+- repair-agent prompt design
+
+Default mode:
+Use caveman lite for implementation replies only.
+Use normal clear prose when ambiguity or safety risk exists.

@@ -1,0 +1,77 @@
+{
+  "detected_item": "Cabinet door hinge (standard overlay or European cup hinge)",
+  "problem_summary": "Cabinet door is loose, sagging, or swinging freely. Most likely cause is a stripped screw hole or loose mounting screws — both are quick field repairs.",
+  "category": "household",
+  "risk_level": "low",
+  "repair_difficulty": "beginner",
+  "confidence_overall": 0.94,
+  "visible_observations": [
+    "Door sags downward or sits crooked relative to adjacent doors",
+    "Hinge plate visibly wobbles when door is moved",
+    "Mounting screws appear backed out or turn without gripping"
+  ],
+  "likely_causes": [
+    {
+      "description": "Stripped screw hole — wood fibers around screw are torn, screw cannot grip",
+      "confidence": 0.85,
+      "evidence": "Screw turns freely without tightening; no resistance felt when turning"
+    },
+    {
+      "description": "Mounting screws simply loose — vibration or repeated use backed them out",
+      "confidence": 0.75,
+      "evidence": "Screws visibly backed out from surface; hinge wiggles but screws still have some grip"
+    },
+    {
+      "description": "Worn or bent hinge plate — hinge is physically deformed",
+      "confidence": 0.60,
+      "evidence": "Door sags even after screws are fully tightened; hinge plate is visibly bent or cracked"
+    }
+  ],
+  "clarifying_questions": [
+    "When you turn the mounting screw, does it spin freely without gripping, or does it tighten with resistance?",
+    "Is the door sagging downward, pulling away from the frame, or swinging open on its own?",
+    "Is this a European cup hinge (circular hole in the door face) or a traditional flat strap hinge?"
+  ],
+  "tools_needed": [
+    "Phillips head screwdriver (matching screw head size)",
+    "Wooden toothpicks and wood glue (for stripped screw holes)",
+    "Replacement hinge — same model (only if hinge is bent)"
+  ],
+  "next_best_test": "Tighten all visible hinge screws with a screwdriver. If the door firms up and closes correctly, loose screws were the only problem. If a screw still spins freely, the hole is stripped.",
+  "step_by_step_repair": [
+    {
+      "step_number": 1,
+      "instruction": "Tighten all hinge screws firmly with a screwdriver. Open and close the door to check if it sits correctly.",
+      "warning": null,
+      "expected_outcome": "Door closes flush with even gaps on all sides — loose screws were the cause, repair complete."
+    },
+    {
+      "step_number": 2,
+      "instruction": "If a screw spins freely: remove it, dip 2–3 wooden toothpicks in wood glue, pack them into the hole, snap off flush. Let cure 30 minutes.",
+      "warning": "Do not skip the cure time — driving the screw into wet glue will strip the repair immediately.",
+      "expected_outcome": "After curing, re-drive the screw. It should grip firmly with normal resistance."
+    },
+    {
+      "step_number": 3,
+      "instruction": "If the hinge plate is visibly bent: remove the door (support with a second person), unscrew the bent hinge, install a replacement of the same model, re-hang the door.",
+      "warning": "Cabinet doors can be heavier than they appear — use a second person or a prop to support the door weight.",
+      "expected_outcome": "Door hangs level and closes with even gaps. Adjust European hinge screws to fine-tune alignment if needed."
+    }
+  ],
+  "stop_conditions": [
+    "Stop if the cabinet frame itself is cracked or split around the hinge area — screw reinforcement will not hold; the frame needs repair first.",
+    "Stop if the door material is particle board that has swollen or delaminated around the hinge — the material cannot hold a fastener and the door panel may need replacement."
+  ],
+  "prevention": [
+    "Check and lightly tighten all cabinet hinge screws once per year as part of routine home maintenance.",
+    "Avoid hanging heavy items on cabinet doors — weight accelerates screw loosening and hinge wear.",
+    "Use the correct screw length specified for the hinge — too short strips the hole, too long splits the frame material."
+  ],
+  "retrieved_sources": [
+    {
+      "title": "Cabinet Hinge Repair and Replacement Guide",
+      "source": "knowledge_base/household/cabinet_hinge_repair.md",
+      "relevance_score": 0.96
+    }
+  ]
+}

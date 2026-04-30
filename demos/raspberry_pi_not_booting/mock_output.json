@@ -1,0 +1,101 @@
+{
+  "detected_item": "Raspberry Pi single-board computer (model unknown)",
+  "problem_summary": "Raspberry Pi shows no signs of life or fails to complete boot sequence, likely caused by inadequate power supply, corrupted SD card, or GPIO hardware conflict.",
+  "category": "electronics",
+  "risk_level": "medium",
+  "repair_difficulty": "intermediate",
+  "confidence_overall": 0.78,
+  "visible_observations": [
+    "No activity on ACT LED after applying power",
+    "PWR LED may be solid but ACT LED never blinks",
+    "No HDMI output or network activity detected"
+  ],
+  "likely_causes": [
+    {
+      "description": "Inadequate power supply — insufficient current for Pi model",
+      "confidence": 0.80,
+      "evidence": "No activity LEDs, or PWR LED solid with ACT LED never blinking after power-on"
+    },
+    {
+      "description": "Corrupted SD card or damaged filesystem",
+      "confidence": 0.72,
+      "evidence": "PWR LED solid, ACT LED blinks briefly then stops — kernel panic or filesystem mount failure"
+    },
+    {
+      "description": "Corrupted OS image — bad flash or partial write",
+      "confidence": 0.65,
+      "evidence": "ACT LED blinks a specific pattern (4 or 7 blinks) indicating boot error code"
+    },
+    {
+      "description": "GPIO header short circuit from connected hardware",
+      "confidence": 0.40,
+      "evidence": "PSU current draw spikes immediately on power-on, Pi never initializes"
+    }
+  ],
+  "clarifying_questions": [
+    "What color and blink pattern do the PWR and ACT LEDs show within the first 10 seconds of applying power?",
+    "Are any GPIO pins connected to external hardware, a breadboard, or HAT boards?",
+    "What power supply are you using — official Raspberry Pi PSU, USB-C PD adapter, or a phone charger?"
+  ],
+  "tools_needed": [
+    "USB-C power meter or inline current tester",
+    "Spare microSD card (8GB+)",
+    "MicroSD card reader (for PC/Mac)",
+    "Multimeter"
+  ],
+  "next_best_test": "Disconnect all GPIO connections and USB peripherals, then power on the bare board. This isolates whether external hardware is causing the failure.",
+  "step_by_step_repair": [
+    {
+      "step_number": 1,
+      "instruction": "Disconnect all GPIO connections, USB devices, and HATs. Power on the bare board only.",
+      "warning": null,
+      "expected_outcome": "If Pi boots, the issue is with connected external hardware — reconnect one at a time to find the fault."
+    },
+    {
+      "step_number": 2,
+      "instruction": "Measure voltage at GPIO pin 4 (5V) and pin 6 (GND) using a multimeter while the Pi is powered.",
+      "warning": "Do not probe while inserting the SD card — be gentle around the card slot.",
+      "expected_outcome": "Should read 4.75–5.25V. Voltage outside this range indicates a power supply fault."
+    },
+    {
+      "step_number": 3,
+      "instruction": "Remove the SD card and inspect it in a PC or Mac. Run filesystem check (fsck on Linux/macOS, chkdsk on Windows).",
+      "warning": null,
+      "expected_outcome": "If errors are found and repaired, re-insert and test boot. Persistent errors indicate a failing card."
+    },
+    {
+      "step_number": 4,
+      "instruction": "Re-flash the OS image to a known-good SD card using Raspberry Pi Imager. Use the latest stable release.",
+      "warning": null,
+      "expected_outcome": "Clean boot with ACT LED showing regular blinking pattern — OS loading successfully."
+    },
+    {
+      "step_number": 5,
+      "instruction": "If ACT LED blinks in a repeating pattern, count the blinks and cross-reference the Raspberry Pi boot error code documentation.",
+      "warning": null,
+      "expected_outcome": "Error code identifies specific hardware or software failure (e.g., 4 blinks = start.elf not found)."
+    }
+  ],
+  "stop_conditions": [
+    "Stop if the PSU or board feels warm within seconds of power-on — immediate fire or damage risk.",
+    "Stop if you smell burning — disconnect power immediately, board may have a shorted component.",
+    "Stop if GPIO header pins show discoloration, burn marks, or physical damage — do not apply power again."
+  ],
+  "prevention": [
+    "Always use the official Raspberry Pi power supply rated for your specific Pi model.",
+    "Shut down cleanly with 'sudo shutdown -h now' before removing the SD card to prevent filesystem corruption.",
+    "Keep a pre-flashed backup OS card ready for field deployments."
+  ],
+  "retrieved_sources": [
+    {
+      "title": "Raspberry Pi Boot Troubleshooting and LED Error Codes",
+      "source": "knowledge_base/electronics/raspberry_pi_boot_guide.md",
+      "relevance_score": 0.93
+    },
+    {
+      "title": "Embedded Linux Power Supply Requirements",
+      "source": "knowledge_base/electronics/embedded_power_requirements.md",
+      "relevance_score": 0.74
+    }
+  ]
+}

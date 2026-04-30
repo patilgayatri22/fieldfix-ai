@@ -1,0 +1,101 @@
+{
+  "detected_item": "Hobby/industrial servo motor (position-control type)",
+  "problem_summary": "Servo emits continuous buzzing noise near specific joint angles, indicating PWM range mismatch, mechanical binding, or power supply instability.",
+  "category": "robotics",
+  "risk_level": "medium",
+  "repair_difficulty": "intermediate",
+  "confidence_overall": 0.82,
+  "visible_observations": [
+    "Continuous buzzing sound near certain position command values",
+    "Noise correlates with specific joint angles, not continuous motion",
+    "Servo arm appears to oscillate slightly rather than hold position"
+  ],
+  "likely_causes": [
+    {
+      "description": "Mechanical binding at specific joint angles causing servo to hunt",
+      "confidence": 0.75,
+      "evidence": "Buzzing occurs only near certain angles — servo is fighting physical resistance"
+    },
+    {
+      "description": "PWM pulse width outside manufacturer-specified 1000–2000µs range",
+      "confidence": 0.70,
+      "evidence": "Noise correlates with position command values near software min/max limits"
+    },
+    {
+      "description": "Power supply voltage drop under load causing servo to lose position",
+      "confidence": 0.55,
+      "evidence": "Buzzing intensifies under mechanical load, quieter when unloaded"
+    },
+    {
+      "description": "Internal gear damage causing rough movement and acoustic noise",
+      "confidence": 0.35,
+      "evidence": "Grinding texture mixed with buzz, felt when manually rotating horn with power off"
+    }
+  ],
+  "clarifying_questions": [
+    "Does the buzzing occur only at specific joint angles, or is it continuous throughout the full range?",
+    "What PWM library and pulse range are you using — e.g., 500–2500µs or 1000–2000µs?",
+    "Does the noise change or stop when you physically remove the mechanical load from the servo horn?"
+  ],
+  "tools_needed": [
+    "Multimeter (voltage measurement)",
+    "Servo tester or signal generator",
+    "PWM oscilloscope or logic analyzer",
+    "Caliper (to check for binding in mechanical linkage)"
+  ],
+  "next_best_test": "Remove all mechanical load from the servo horn and command the servo to the angle where buzzing occurs. If buzzing stops, the cause is mechanical binding; if it continues, the cause is electrical or software.",
+  "step_by_step_repair": [
+    {
+      "step_number": 1,
+      "instruction": "Disconnect the servo from all mechanical linkage. Command it to the buzzing angle using a servo tester.",
+      "warning": null,
+      "expected_outcome": "Buzzing stops — confirms mechanical binding as the cause. Buzzing continues — confirms electrical or software issue."
+    },
+    {
+      "step_number": 2,
+      "instruction": "Measure supply voltage at the servo power leads under load using a multimeter.",
+      "warning": "Do not short the probes against the signal wire — only measure V+ and GND.",
+      "expected_outcome": "Voltage stays above 4.8V for a 5V servo. Drop below 4.5V indicates PSU fault."
+    },
+    {
+      "step_number": 3,
+      "instruction": "Check your software PWM pulse range against the servo datasheet. Adjust min/max to the rated range (typically 1000–2000µs).",
+      "warning": null,
+      "expected_outcome": "Servo moves smoothly to all commanded positions without buzzing at limits."
+    },
+    {
+      "step_number": 4,
+      "instruction": "With power off, manually rotate the servo horn through its full range. Feel for any grinding, stiffness, or rough spots.",
+      "warning": null,
+      "expected_outcome": "Smooth rotation with no rough spots — gears are intact. Grinding indicates internal gear damage."
+    },
+    {
+      "step_number": 5,
+      "instruction": "If mechanical binding was found, adjust linkage geometry or add lubrication. Re-test under load.",
+      "warning": "Use only servo-safe lubricant. Do not use WD-40 on plastic gears.",
+      "expected_outcome": "Servo holds position without buzzing at all commanded angles."
+    }
+  ],
+  "stop_conditions": [
+    "Stop immediately if the servo case is hot to the touch — indicates internal short or stall overcurrent.",
+    "Stop if supply voltage drops below 4.5V under test — PSU fault, risk of brownout cascade.",
+    "Stop if grinding sound is accompanied by visible plastic debris — gear strip, servo must be replaced."
+  ],
+  "prevention": [
+    "Always define software PWM min/max limits to the servo's rated pulse range before full-range operation.",
+    "Add current monitoring to the servo power rail to detect stall conditions before physical damage occurs.",
+    "Verify mechanical linkage alignment and range of motion before first power-on after assembly."
+  ],
+  "retrieved_sources": [
+    {
+      "title": "Servo Motor Calibration and PWM Range Guide",
+      "source": "knowledge_base/robotics/servo_calibration_guide.md",
+      "relevance_score": 0.91
+    },
+    {
+      "title": "Robotic Arm Joint Troubleshooting Procedures",
+      "source": "knowledge_base/robotics/arm_joint_troubleshooting.md",
+      "relevance_score": 0.78
+    }
+  ]
+}
