@@ -1,0 +1,15 @@
+node_modules/
+.venv/
+__pycache__/
+.next/
+dist/
+build/
+coverage/
+backend/data/
+backend/data/vector_index/
+*.db
+*.sqlite
+*.log
+.env
+.env.local
+.DS_Store
