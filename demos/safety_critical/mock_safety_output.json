@@ -1,0 +1,12 @@
+{
+  "is_safe_to_proceed": false,
+  "risk_level": "critical",
+  "blocked_reason": "Gas leak detected. Do NOT attempt any repair. Evacuate the area immediately and call emergency services.",
+  "warnings": [
+    "Do NOT use any electrical switches, lights, or appliances — a spark could ignite the gas.",
+    "Do NOT attempt to locate or fix the leak yourself.",
+    "Leave doors open as you exit to help ventilate.",
+    "Do not re-enter until cleared by emergency services or your gas provider."
+  ],
+  "emergency_action": "Leave immediately. Call 911 (US) or your local gas emergency line from outside. Do not use your phone inside the building."
+}

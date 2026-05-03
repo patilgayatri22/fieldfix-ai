@@ -24,6 +24,12 @@ from backend.schemas.repair_output import (
     RetrievedSource,
     RiskLevel,
 )
+from backend.memory.device_memory import (
+    RepairHistoryResponse,
+    clear_history,
+    get_history,
+    save_repair,
+)
 from backend.schemas.safety_output import SafetyOutput
 
 DEMOS_DIR = Path(__file__).parent.parent / "demos"
@@ -336,3 +342,26 @@ def analyze(request: AnalyzeRequest) -> RepairOutput:
     except Exception:
         # Any unexpected pipeline failure → fall back to mock
         return _load_mock(request.symptom, request.category)
+
+
+# ── Device memory routes ───────────────────────────────────────────────────────
+
+@app.post("/memory/{device_id}")
+def memory_save(device_id: str, output: RepairOutput):
+    """Save a repair result to device history."""
+    entry = save_repair(device_id, output)
+    return entry.model_dump()
+
+
+@app.get("/memory/{device_id}", response_model=RepairHistoryResponse)
+def memory_get(device_id: str) -> RepairHistoryResponse:
+    """Fetch repair history for a device."""
+    entries = get_history(device_id)
+    return RepairHistoryResponse(device_id=device_id, total=len(entries), entries=entries)
+
+
+@app.delete("/memory/{device_id}")
+def memory_clear(device_id: str) -> dict:
+    """Clear all repair history for a device."""
+    count = clear_history(device_id)
+    return {"device_id": device_id, "deleted": count}

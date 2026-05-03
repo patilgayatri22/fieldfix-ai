@@ -1,0 +1,12 @@
+{
+  "is_safe_to_proceed": false,
+  "risk_level": "high",
+  "blocked_reason": "Swollen or puffed lithium battery detected. Repair is blocked — disassembly risks thermal runaway and fire.",
+  "warnings": [
+    "Do NOT puncture, compress, or attempt to charge a swollen battery.",
+    "Do NOT leave the device unattended — a puffed LiPo can ignite without warning.",
+    "Move the device to a non-flammable surface away from combustibles.",
+    "If the battery is hot or emitting smoke, treat as a fire emergency immediately."
+  ],
+  "emergency_action": null
+}
