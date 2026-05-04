@@ -13,6 +13,7 @@ from backend.agents import (
     repair_planner,
     verification_agent,
 )
+from backend.agents.repair_orchestrator import RepairOrchestrator
 from backend.agents.safety_guardrails import classify_safety
 from backend.model_runtime.gemma_client import get_client
 from backend.rag.ingest import get_collection
@@ -33,6 +34,7 @@ from backend.memory.device_memory import (
 from backend.schemas.safety_output import SafetyOutput
 
 DEMOS_DIR = Path(__file__).parent.parent / "demos"
+orchestrator = RepairOrchestrator()
 
 # ── Mode flag ──────────────────────────────────────────────────────────────────
 # USE_MOCK=true  → always return demo JSON (fast, no Ollama needed)
@@ -58,6 +60,7 @@ app.add_middleware(
 class AnalyzeRequest(BaseModel):
     symptom: str
     category: Category | None = None
+    device_id: str | None = None
     image_description: str | None = None
 
 
@@ -304,7 +307,7 @@ def safety_check(request: SafetyCheckRequest) -> SafetyOutput:
 
 
 @app.post("/repair/analyze", response_model=RepairOutput)
-def analyze(request: AnalyzeRequest) -> RepairOutput:
+async def analyze(request: AnalyzeRequest) -> RepairOutput:
     """
     Analyze a repair symptom and return structured repair guidance.
 
@@ -312,7 +315,7 @@ def analyze(request: AnalyzeRequest) -> RepairOutput:
     Mode B (USE_MOCK=false): Run full Gemma agent pipeline.
                              Auto-falls back to mock if Ollama unreachable.
     """
-    # ── 1. Safety pre-check (always runs) ────────────────────────────────────
+    # ── 1. Safety pre-check (HTTP layer — raises 422 for UI) ─────────────────
     safety = classify_safety(request.symptom)
     if not safety.is_safe_to_proceed:
         raise HTTPException(status_code=422, detail=safety.model_dump())
@@ -327,21 +330,14 @@ def analyze(request: AnalyzeRequest) -> RepairOutput:
             ),
         )
 
-    # ── 3a. Mock mode — fast path ─────────────────────────────────────────────
-    if USE_MOCK:
-        return _load_mock(request.symptom, request.category)
-
-    # ── 3b. Agent pipeline — full Gemma path ─────────────────────────────────
-    client = get_client()
-    if not client.is_available():
-        # Ollama not running → graceful fallback to mock
-        return _load_mock(request.symptom, request.category)
-
-    try:
-        return _run_agent_pipeline(request)
-    except Exception:
-        # Any unexpected pipeline failure → fall back to mock
-        return _load_mock(request.symptom, request.category)
+    # ── 3. Orchestrator (handles mock, Ollama availability, fallback) ─────────
+    category_str = request.category.value if request.category else None
+    return await orchestrator.run(
+        symptom=request.symptom,
+        category=category_str,
+        device_id=request.device_id,
+        use_mock=USE_MOCK or None,
+    )
 
 
 # ── Device memory routes ───────────────────────────────────────────────────────
